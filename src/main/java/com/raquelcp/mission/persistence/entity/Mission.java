@@ -23,7 +23,7 @@ import lombok.Data;
 @Table(name = "missions")
 public class Mission {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Date startDate;
@@ -33,7 +33,7 @@ public class Mission {
     private Integer duration;
 
     @JoinColumn(name = "starship")
-    @OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Starship starship;
 
     @ManyToMany(cascade = {
