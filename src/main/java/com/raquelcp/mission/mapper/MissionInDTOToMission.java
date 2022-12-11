@@ -53,6 +53,7 @@ public class MissionInDTOToMission implements IMapper<MissionInDTO, Mission>{
 
         if(in.getStarship() != null) {
             var response = restTemplate.getForEntity(in.getStarship(), Starship.class);
+            
             if(response.getStatusCode() == HttpStatus.OK) {
                 starship = response.getBody();
             }

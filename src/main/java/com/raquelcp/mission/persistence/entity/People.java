@@ -1,5 +1,6 @@
 package com.raquelcp.mission.persistence.entity;
 
+import java.beans.BeanProperty;
 import java.util.List;
 import java.util.Set;
 
@@ -7,9 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 
@@ -25,4 +26,5 @@ public class People {
     
     @ManyToMany(mappedBy = "captains")
     private Set<Mission> missions;
+
 }

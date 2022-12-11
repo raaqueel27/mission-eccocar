@@ -9,6 +9,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 import lombok.Data;
@@ -24,8 +27,8 @@ public class Starship {
     private String name;
     private String crew;
     private String passengers;
-    @ElementCollection(targetClass = People.class)
-    private List<People> pilots;
+    @ElementCollection
+    private List<String> pilots;
     @OneToOne(mappedBy = "starship", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Mission mission;
     

@@ -33,7 +33,7 @@ public class Mission {
     private Integer duration;
 
     @JoinColumn(name = "starship")
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Starship starship;
 
     @ManyToMany(cascade = {
