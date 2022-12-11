@@ -44,11 +44,9 @@ public class MissionService {
         if(mission.getCaptains().isEmpty()) {
             return false;
         }
-        System.out.println("Hay uno o más capitanes");
         if(mission.getPlanets().isEmpty()) {
             return false;
         }
-        System.out.println("Hay uno o más planetas");
         if(mission.getCrew() < 0) {
             return false;
         }
@@ -73,7 +71,6 @@ public class MissionService {
                 }
             }
         }
-        System.out.println("En piloto está presente en caso de haberlo");
 
         int totalCrew = mission.getCaptains().size() + mission.getCrew();
         String starshipMinCrewStr = mission.getStarship().getCrew();
@@ -86,7 +83,6 @@ public class MissionService {
         if(totalCrew > (mission.getCrew() + Integer.parseInt(mission.getStarship().getPassengers()))) {
             return false;
         }
-        System.out.println("La tripulación es válida");
 
         List<People> captains = mission.getCaptains();
         List<Mission> allMissions = this.repository.findAll(); 
