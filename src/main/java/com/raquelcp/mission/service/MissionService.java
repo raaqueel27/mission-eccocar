@@ -29,7 +29,7 @@ public class MissionService {
     public Mission createMission(MissionInDTO missionInDTO) {
         Mission mission = missionMapper.map(missionInDTO);
         if(isValid(mission)) {
-            return this.repository.save(mission);  
+            return this.repository.saveAndFlush(mission);  
         }
         return null;
     }
@@ -38,11 +38,9 @@ public class MissionService {
         if(mission.getStartDate() == null) {
             return false;
         }
-        System.out.println("Hay una fecha");
-        if(mission.getStarship().getId() == null) {
+        if(mission.getStarship().getUrl() == null) {
             return false;
         }
-        System.out.println(mission.getStarship());
         if(mission.getCaptains().isEmpty()) {
             return false;
         }
@@ -85,7 +83,7 @@ public class MissionService {
         if(totalCrew < Integer.parseInt(starshipMinCrewStr)) {
             return false;
         }
-        if(totalCrew > (mission.getCrew() + Integer.parseInt(mission.getStarship().getCrew()))) {
+        if(totalCrew > (mission.getCrew() + Integer.parseInt(mission.getStarship().getPassengers()))) {
             return false;
         }
         System.out.println("La tripulación es válida");
