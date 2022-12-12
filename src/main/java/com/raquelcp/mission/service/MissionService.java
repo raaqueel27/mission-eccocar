@@ -40,15 +40,23 @@ public class MissionService {
         return this.repository.findAll();
     }
 
-    public List<Mission> getAllByCaptains(List<People> captains) {
+    public List<Mission> getAllByCaptains(String captainsId) {
+        String[] captainsIdArray = captainsId.split(", ");
         List<Mission> allMissions = this.repository.findAll();
         List<Mission> missions = new ArrayList<Mission>();
-        for(People captain: captains) {
-            for(Mission ms: allMissions) {
-                if(ms.getCaptains().contains(captain)) {
-                    missions.add(ms);
+        for(Mission ms: allMissions) {
+            List<People> captains = ms.getCaptains();
+            for(People captain: captains) {
+                String captainId = String.valueOf(captain.getId());
+                for(int i = 0; i < captainsIdArray.length; i++) {
+                    if(captainId.equals(captainsIdArray[i])) {
+                        missions.add(ms);
+                    }
                 }
             }
+        }
+        if(missions != null) {
+            System.out.println("No se ha encontrado ninguna misión con esos capitanes");
         }
         return missions;
     }

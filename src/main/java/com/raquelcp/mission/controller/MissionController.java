@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.raquelcp.mission.persistence.entity.Mission;
+import com.raquelcp.mission.persistence.entity.People;
 import com.raquelcp.mission.service.MissionService;
 import com.raquelcp.mission.service.dto.MissionInDTO;
 
@@ -34,7 +35,7 @@ public class MissionController {
     }
 
     @GetMapping("/captains/{captains}")
-    public List<Mission> getByCaptains(@PathVariable("captains") List<People> captains) {
+    public List<Mission> getAllByCaptains(@PathVariable String captains) {
         return this.missionService.getAllByCaptains(captains);
     }
 }
