@@ -2,7 +2,9 @@ package com.raquelcp.mission.service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -32,6 +34,23 @@ public class MissionService {
             return this.repository.saveAndFlush(mission);  
         }
         return null;
+    }
+
+    public List<Mission> getAll() {
+        return this.repository.findAll();
+    }
+
+    public List<Mission> getAllByCaptains(List<People> captains) {
+        List<Mission> allMissions = this.repository.findAll();
+        List<Mission> missions = new ArrayList<Mission>();
+        for(People captain: captains) {
+            for(Mission ms: allMissions) {
+                if(ms.getCaptains().contains(captain)) {
+                    missions.add(ms);
+                }
+            }
+        }
+        return missions;
     }
 
     private Boolean isValid(Mission mission) {

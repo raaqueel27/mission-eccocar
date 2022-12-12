@@ -1,6 +1,9 @@
 package com.raquelcp.mission.controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,5 +26,15 @@ public class MissionController {
     @PostMapping
     public Mission createMission(@RequestBody MissionInDTO missionInDTO) {
         return this.missionService.createMission(missionInDTO);
+    }
+
+    @GetMapping
+    public List<Mission> getAll() {
+        return this.missionService.getAll();
+    }
+
+    @GetMapping("/captains/{captains}")
+    public List<Mission> getByCaptains(@PathVariable("captains") List<People> captains) {
+        return this.missionService.getAllByCaptains(captains);
     }
 }

@@ -1,5 +1,6 @@
 package com.raquelcp.mission.persistence.entity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -7,6 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.raquelcp.mission.util.CustomMissionSerializer;
 
 import lombok.Data;
 
@@ -22,6 +26,7 @@ public class Planets {
     private Double diameter;
 
     @ManyToMany(mappedBy = "planets")
-    private Set<Mission> missions;
+    @JsonSerialize(using = CustomMissionSerializer.class)
+    private Set<Mission> missions = new HashSet<Mission>();
     
 }

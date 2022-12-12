@@ -16,6 +16,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.Data;
 
 @Data
@@ -34,6 +37,7 @@ public class Mission {
 
     @JoinColumn(name = "starship")
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Starship starship;
 
     @ManyToMany(cascade = {
@@ -45,6 +49,7 @@ public class Mission {
             joinColumns = {@JoinColumn(name = "mission_id")},
             inverseJoinColumns = {@JoinColumn(name = "people_url")}
     )
+    @JsonIgnoreProperties("missions")
     private List<People> captains;
 
     private Integer crew;
@@ -58,16 +63,7 @@ public class Mission {
             joinColumns = {@JoinColumn(name = "mission_id")},
             inverseJoinColumns = {@JoinColumn(name = "planet_url")}
     )
-    private List<Planets> planets;
-
-    @Override
-    public String toString() {
-        return "Mission{" +
-        "id=" + id +
-        ", startDate='" + startDate + '\'' +
-        ", endDate=" + endDate +
-        ", duration=" + duration +
-        '}';
-    }   
+    @JsonIgnoreProperties("missions")
+    private List<Planets> planets; 
     
 }
