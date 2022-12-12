@@ -21,14 +21,17 @@ public class MissionInDTOToMission implements IMapper<MissionInDTO, Mission>{
         Mission mission = new Mission();
         RestTemplate restTemplate = new RestTemplate();
         
+        //Initialization of startDate
         mission.setStartDate(in.getStartDate());
+
+        //Initialization of crew
         mission.setCrew(in.getCrew());
-        System.out.println("Fecha de inicio y Tripulacion iniciadas");
 
         ArrayList<Planets> planets = new ArrayList<Planets>();
         ArrayList<People> captains = new ArrayList<People>();
         Starship starship = new Starship();
 
+        //Initialization of planets
         if(!in.getPlanets().isEmpty()) {
             for(String planetUrl: in.getPlanets()) {
                 var response = restTemplate.getForEntity(planetUrl, Planets.class);
@@ -38,8 +41,8 @@ public class MissionInDTOToMission implements IMapper<MissionInDTO, Mission>{
             }
         }
         mission.setPlanets(planets);
-        System.out.println("Planetas iniciados");
 
+        //Initialization of captains
         if(!in.getCaptains().isEmpty()) {
             for(String captainUrl: in.getCaptains()) {
                 var response = restTemplate.getForEntity(captainUrl, People.class);
@@ -49,8 +52,8 @@ public class MissionInDTOToMission implements IMapper<MissionInDTO, Mission>{
             }
         }
         mission.setCaptains(captains);
-        System.out.println("Capitanes iniciados");
 
+        //Initialization of starship
         if(in.getStarship() != null) {
             var response = restTemplate.getForEntity(in.getStarship(), Starship.class);
             
@@ -59,9 +62,7 @@ public class MissionInDTOToMission implements IMapper<MissionInDTO, Mission>{
             }
         }
         mission.setStarship(starship);
-        System.out.println("Nave iniciada");
 
-        
         //Mission duration calculation
         double totalDiameter = 0;
         int totalMinutes = 0;
@@ -82,7 +83,6 @@ public class MissionInDTOToMission implements IMapper<MissionInDTO, Mission>{
         }
 
         mission.setDuration(totalHours);
-        System.out.println("Duración iniciada");
 
         //End Date Calculation
         Calendar calendar = Calendar.getInstance();

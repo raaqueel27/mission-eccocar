@@ -32,7 +32,7 @@ public class SwaggerConfig {
                 "API Rest para la gestión de misiones espaciales.",
                 "v1",
                 "Terms of service",
-                new Contact("Raquel CP", "www.example.com", "myeaddress@company.com"),
+                new Contact("Raquel CP", "https://github.com/raaqueel27/mission-eccocar.git", "raquelpravia27@gmail.com"),
                 "License of API", "API license URL", Collections.emptyList());
     }
 }

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.raquelcp.mission.persistence.entity.Mission;
-import com.raquelcp.mission.persistence.entity.People;
 import com.raquelcp.mission.service.MissionService;
 import com.raquelcp.mission.service.dto.MissionInDTO;
 
