@@ -20,7 +20,7 @@ Lista todas las misiones.
 
 #### _Get All By Captains_
 ```sh
-[POST] /missions/captains/{captainsId}
+[GET] /missions/captains/{captainsId}
 ```
 Lista todas las misiones que tengan presente a los capitanes indicados.
 Se deben pasar como parámetro las ID de los capitanes.
