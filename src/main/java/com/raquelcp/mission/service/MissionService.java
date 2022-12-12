@@ -36,18 +36,23 @@ public class MissionService {
 
     private Boolean isValid(Mission mission) {
         if(mission.getStartDate() == null) {
+            System.out.println("No hay fecha de inicio.");
             return false;
-        }
+        } 
         if(mission.getStarship().getUrl() == null) {
+            System.out.println("No hay nave");
             return false;
         }
         if(mission.getCaptains().isEmpty()) {
+            System.out.println("No hay capitanes");
             return false;
         }
         if(mission.getPlanets().isEmpty()) {
+            System.out.println("No hay planetas");
             return false;
         }
         if(mission.getCrew() < 0) {
+            System.out.println("Número de tripulación no válido");
             return false;
         }
         List<String> pilotsUrl = mission.getStarship().getPilots();
@@ -67,40 +72,47 @@ public class MissionService {
                     }
                 }
                 if(!isPresent) {
+                    System.out.println("El piloto de la nave no está presente");
                     return false;
                 }
             }
         }
 
         int totalCrew = mission.getCaptains().size() + mission.getCrew();
-        String starshipMinCrewStr = mission.getStarship().getCrew();
-        if(starshipMinCrewStr == null) {
+        int starshipCrew = Integer.parseInt(mission.getStarship().getCrew());
+        if(totalCrew < starshipCrew) {
+            System.out.println("La tripulación total es menor que la mínima requerida en la nave.");
             return false;
         }
-        if(totalCrew < Integer.parseInt(starshipMinCrewStr)) {
-            return false;
-        }
-        if(totalCrew > (mission.getCrew() + Integer.parseInt(mission.getStarship().getPassengers()))) {
+        if(totalCrew > (starshipCrew + Integer.parseInt(mission.getStarship().getPassengers()))) {
+            System.out.println(totalCrew + " > " + starshipCrew + " + " + mission.getStarship().getPassengers());
+            System.out.println("La tripulación total es mayor que la suma de los pasajeros de la nave y la tripulación de la misión.");
             return false;
         }
 
         List<People> captains = mission.getCaptains();
+        ArrayList<String> captainsUrl = new ArrayList<String>();
+        for(People captain: captains)  {
+            captainsUrl.add(captain.getUrl());
+        }
         List<Mission> allMissions = this.repository.findAll(); 
         Date startDate = mission.getStartDate();
         Date endDate = mission.getEndDate();
         for(Mission ms: allMissions) {
             for(People captain: captains) {
-                if(ms.getCaptains().contains(captain)) {
+                String captainUrl = captain.getUrl();
+                if(captainsUrl.contains(captainUrl)) {
                     if(!(endDate.before(ms.getStartDate()) || startDate.after(ms.getEndDate()))) {
+                        System.out.println("El capitán está ocupado en esas fechas");
                         return false;
                     }
                     if(startDate == ms.getStartDate() && endDate == ms.getEndDate()) {
+                        System.out.println("El capitán está ocupado en esas fechas");
                         return false;
                     }
                 }
             }
         }
-        System.out.println("El captián no está ocupado");
         return true;
     }
 }

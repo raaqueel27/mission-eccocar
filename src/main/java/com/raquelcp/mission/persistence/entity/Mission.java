@@ -59,5 +59,15 @@ public class Mission {
             inverseJoinColumns = {@JoinColumn(name = "planet_url")}
     )
     private List<Planets> planets;
+
+    @Override
+    public String toString() {
+        return "Mission{" +
+        "id=" + id +
+        ", startDate='" + startDate + '\'' +
+        ", endDate=" + endDate +
+        ", duration=" + duration +
+        '}';
+    }   
     
 }
